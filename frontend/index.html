@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+  <link rel="icon" type="image/png" href="/frontend/aset/camera (2).png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Face Recognition System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h2 {
+      color: #007bff;
+      font-size: 18px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    p.result {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #555;
+      word-wrap: break-word;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e9ecef;
+      margin-top: 5px;
+      padding: 6px 10px;
+      border-radius: 5px;
+    }
+
+    /* Tombol global */
+    button {
+      width: 100%;
+    }
+
+    /* Override khusus tombol hapus */
+    li .delete-btn {
+      width: auto !important;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #dc3545;
+      font-size: 22px;
+      padding: 0;
+      margin-left: auto;
+    }
+
+    li .delete-btn:hover {
+      color: #b02a37;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Face Recognition System</h1>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Register Face</h2>
+      <input type="text" id="registerName" placeholder="Enter name">
+      <input type="file" id="registerFile" accept="image/*">
+      <button onclick="registerFace()">Register</button>
+      <p class="result" id="registerResult"></p>
+    </div>
+
+    <div class="card">
+      <h2>Recognize Face</h2>
+      <input type="file" id="recognizeFile" accept="image/*">
+      <button onclick="recognizeFace()">Recognize from File</button>
+      <button onclick="startCamera()">Use Camera</button>
+      <video id="camera" width="250" height="180" autoplay style="display:none; border:1px solid #aaa;"></video>
+      <canvas id="snapshot" width="250" height="180" style="display:none;"></canvas>
+      <button id="captureBtn" style="display:none;" onclick="capturePhoto()">Capture</button>
+      <p class="result" id="recognizeResult"></p>
+      <img id="outputImage" style="max-width:100%; border-radius:8px; margin-top:10px; display:none;">
+      <p id="detected-names" style="font-weight:bold; color:green;"></p>
+      <button onclick="detectFaceYolo()">Detect Face (YOLO)</button>
+    </div>
+
+    <div class="card">
+      <h2>Registered Faces</h2>
+      <button onclick="getAllFaces()">Refresh List</button>
+      <ul id="faceList"></ul>
+    </div>
+  </main>
+
+  <script src="/frontend/script.js"></script>
+</body>
+</html>
